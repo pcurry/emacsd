@@ -27,7 +27,8 @@
 ;; it if you don't already know -- it's very useful!
 (setq ange-ftp-default-user "anonymous")
 
-(setq load-path (cons "/usr/public/share/emacs/site-lisp" load-path))
+;;; Don't know where the site-lisp actually is on my mac.
+;;; (setq load-path (cons "/usr/public/share/emacs/site-lisp" load-path))
 
 
 ; Make sure to send the right anonymous password in ftp:
