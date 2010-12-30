@@ -27,24 +27,25 @@
 ;; it if you don't already know -- it's very useful!
 (setq ange-ftp-default-user "anonymous")
 
-;;; Don't know where the site-lisp actually is on my mac.
 ;;; (setq load-path (cons "/usr/public/share/emacs/site-lisp" load-path))
+
+(setq load-path (cons "/Users/paulc/.emacs.d/site-lisp" load-path))
 
 
 ; Make sure to send the right anonymous password in ftp:
-(defvar ange-ftp-generate-anonymous-password 
-  (concat (user-login-name) "@cs.oberlin.edu" "*Default password used
-by Emacs when it does ftp.  Since anonymous ftp usually asks for your
-address, we just use that."))
+;(defvar ange-ftp-generate-anonymous-password 
+;  (concat (user-login-name) "@cs.oberlin.edu" "*Default password used
+;by Emacs when it does ftp.  Since anonymous ftp usually asks for your
+;address, we just use that."))
 
 ;; Make sure you get good scheme modes:
-(fmakunbound 'run-scheme)
-(autoload 'run-scheme "cmuscheme"
-  "Run an interactive Scheme process in Emacs." t)
+;(fmakunbound 'run-scheme)
+;(autoload 'run-scheme "cmuscheme"
+;  "Run an interactive Scheme process in Emacs." t)
 
 ;; Make VM start out displaying a menu of mail messages when you run
 ;; "M-x vm":
-(setq vm-startup-with-summary t)
+;(setq vm-startup-with-summary t)
 
 ;; Prepare your own personal keymap, and then put it on C-c:
 (define-prefix-command 'personal-map)
@@ -59,7 +60,7 @@ address, we just use that."))
 ;; change it to something else if you want.  Remember, personal-map
 ;; was bound to C-c a few lines above, so the following line has the
 ;; effect of binding "C-c s" to run-scheme:
-(define-key personal-map "s" 'run-scheme)
+;(define-key personal-map "s" 'run-scheme)
 
 ;; Make shell mode start by typing C-c j.
 ;; There is no compelling mnemonic for this.  I just picked "j"
@@ -120,16 +121,16 @@ If there is no scheme process running, you'll get an error."
 ;; This long expression sets up region highlighting under X windows.
 ;; Change the colors, or get rid of it entirely if you want -- these
 ;; are just my personal preferences.
-(if (eq window-system 'x) ; if we are running under X windows...
-    (progn
-      (transient-mark-mode 1)
-      (setq mark-even-if-inactive t)
-      (setq search-highlight t)
-      (setq highlight-nonselected-windows nil)
-      (set-face-background 'region "gray")
-      (set-face-foreground 'region "black")
-      (set-face-background 'highlight "gray")
-      (set-face-foreground 'highlight "black")))
+;; (if (eq window-system 'x) ; if we are running under X windows...
+;;    (progn
+;;      (transient-mark-mode 1)
+;;      (setq mark-even-if-inactive t)
+;;      (setq search-highlight t)
+;;      (setq highlight-nonselected-windows nil)
+;;      (set-face-background 'region "gray")
+;;      (set-face-foreground 'region "black")
+;;      (set-face-background 'highlight "gray")
+;;      (set-face-foreground 'highlight "black")))
 
 ;; Sets font-lock on, highlighting text as appropriate for each 
 ;; language.
@@ -146,11 +147,10 @@ If there is no scheme process running, you'll get an error."
 ;; when you start up Emacs.  Delete or modify it however you wish --
 ;; it's your .emacs, after all!
 
-(switch-to-buffer (get-buffer-create "Welcome!"))
+(switch-to-buffer (get-buffer-create "Cheat Sheet"))
 
 (insert
  "        ------------  Welcome to Emacs (version 20.2.2). ----------------
-C-c s     runs Scheme.
 C-c j     starts up a command shell (gives you a shell prompt, that is).
 C-c f     calls up a file in another window.
 C-c l     goes to a line (prompts you for the line number).
@@ -159,27 +159,5 @@ C-x 5 0   deletes current frame (can help unclutter your screen sometimes).
 C-h m     read out about the major mode in any given buffer.
 C-x C-c   exit Emacs
 
-Type \"C-h t\" if you are very new to Emacs and want to read the Emacs
-tutorial (\"C-h\" means hold down the Control key and press h).  Don't
-include the double-quotes, of course.
-
-Use \"M-x vm\" to read mail.
-
-Take a look at the file .emacs in your home directory, if you want to
-know where this message (and other things) come from.
-You can kill this buffer (i.e.: make it go away) with \"C-x k\".
-
-Mail \"help@cs.oberlin.edu\" if you have questions.
 ")
 
-
-
-
-
-
-
-
-
-(custom-set-variables)
-(custom-set-faces
- '(highlight ((t (:foreground "black" :background "gray")))))
