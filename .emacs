@@ -143,6 +143,16 @@ If there is no scheme process running, you'll get an error."
       (add-hook 'sgml-mode-hook 'turn-on-font-lock)
       (add-hook 'html-mode-hook 'turn-on-font-lock)
 
+
+;; Erlang mode setup
+ (setq load-path (cons  "/Users/paulc/lib/erlang/lib/tools-2.6.6.1/emacs"
+      load-path))
+      (setq erlang-root-dir "/Users/paulc/lib/erlang")
+      (setq exec-path (cons "/Users/paulc/bin" exec-path))
+      (require 'erlang-start)
+
+
+
 ;; Below is all the stuff that creates that annoying "Welcome!" buffer
 ;; when you start up Emacs.  Delete or modify it however you wish --
 ;; it's your .emacs, after all!
