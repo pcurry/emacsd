@@ -23,14 +23,12 @@
 
 ;;; Begin code.
 
+;; Local load-path for mozart. May end up living on all machines someday.
+(setq load-path (cons "/Users/paulc/.emacs.d/site-lisp" load-path))
+
 ;; This makes anon ftp easy from Emacs.  Mail help about how to do
 ;; it if you don't already know -- it's very useful!
 (setq ange-ftp-default-user "anonymous")
-
-;;; (setq load-path (cons "/usr/public/share/emacs/site-lisp" load-path))
-
-(setq load-path (cons "/Users/paulc/.emacs.d/site-lisp" load-path))
-
 
 ; Make sure to send the right anonymous password in ftp:
 ;(defvar ange-ftp-generate-anonymous-password 
@@ -135,23 +133,32 @@ If there is no scheme process running, you'll get an error."
 ;; Sets font-lock on, highlighting text as appropriate for each 
 ;; language.
 
-      (add-hook 'scheme-mode-hook 'turn-on-font-lock)
-      (add-hook 'java-mode-hook 'turn-on-font-lock)
-      (add-hook 'c-mode-hook 'turn-on-font-lock)
-      (add-hook 'c++-mode-hook 'turn-on-font-lock)
-      (add-hook 'perl-mode-hook 'turn-on-font-lock)
-      (add-hook 'sgml-mode-hook 'turn-on-font-lock)
-      (add-hook 'html-mode-hook 'turn-on-font-lock)
+(add-hook 'scheme-mode-hook 'turn-on-font-lock)
+(add-hook 'java-mode-hook 'turn-on-font-lock)
+(add-hook 'c-mode-hook 'turn-on-font-lock)
+(add-hook 'c++-mode-hook 'turn-on-font-lock)
+(add-hook 'perl-mode-hook 'turn-on-font-lock)
+(add-hook 'sgml-mode-hook 'turn-on-font-lock)
+(add-hook 'html-mode-hook 'turn-on-font-lock)
 
 
 ;; Erlang mode setup
- (setq load-path (cons  "/Users/paulc/lib/erlang/lib/tools-2.6.6.1/emacs"
-      load-path))
-      (setq erlang-root-dir "/Users/paulc/lib/erlang")
-      (setq exec-path (cons "/Users/paulc/bin" exec-path))
-      (require 'erlang-start)
+(setq load-path (cons  "/Users/paulc/lib/erlang/lib/tools-2.6.6.1/emacs"
+		       load-path))
+(setq erlang-root-dir "/Users/paulc/lib/erlang")
+(setq exec-path (cons "/Users/paulc/bin" exec-path))
+(require 'erlang-start)
 
 
+;; Haskell mode setup
+
+(load "~/lib/emacs/haskell-mode-2.8.0/haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(add-hook 'haskell-mode-hook 'font-lock-mode)
+(add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
 
 ;; Below is all the stuff that creates that annoying "Welcome!" buffer
 ;; when you start up Emacs.  Delete or modify it however you wish --
@@ -160,7 +167,7 @@ If there is no scheme process running, you'll get an error."
 (switch-to-buffer (get-buffer-create "Cheat Sheet"))
 
 (insert
- "        ------------  Welcome to Emacs (version 20.2.2). ----------------
+ "        ------------  Welcome to Emacs. ----------------
 C-c j     starts up a command shell (gives you a shell prompt, that is).
 C-c f     calls up a file in another window.
 C-c l     goes to a line (prompts you for the line number).
