@@ -28,12 +28,16 @@
 ;; exec-path to find executables.
 (setq magit-git-executable "/Users/paulc/bin/git")
 
+;; Auctex needs to know where the texmf directory is to build properly.
+;; This passes that info into the el-get recipe.
+(setq el-get-local-texmf-path "/usr/local/texlive/2010/texmf")
+
 ;; Start doing the el-get magic.
 (require 'el-get)
 
 ;; Things I'm managing with el-get right now.
 (setq el-get-sources
-      '(el-get color-theme color-theme-twilight org-mode))
+      '(el-get auctex color-theme color-theme-twilight org-mode rinari))
 
 (el-get)
 
@@ -56,3 +60,17 @@
 (add-hook 'haskell-mode-hook 'font-lock-mode)
 (add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
 
+
+;; Trying to get auctex working.
+(setq load-path 
+      (cons "/Applications/Emacs.app/Contents/Resources/site-lisp/auctex" 
+	    load-path))
+
+
+;; Org mode setup
+(require 'org-install)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+(setq org-agenda-files (list "~/personal/org/home.org"))
