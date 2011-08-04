@@ -1,0 +1,3 @@
+I just want to keep my .emacs online.  It was this or bitbucket, and I decided this because I don't want to lose my git chops completely while I'm working in a Mercurial shop.
+
+There's probably not going to be too much impressive in here, because I use el-get, which does most of the magic for me.  That said, I've taken a lot of ideas from a new co-worker, most of which are things he has running in his Emacs for Python development.
