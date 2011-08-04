@@ -1,0 +1,1 @@
+(:el-get "installed" :color-theme "installed" :color-theme-twilight "installed" :org-mode "installed" :haskell-mode "removed" :auctex "installed" :rinari "removed" :package "installed" :clojure-mode "installed" :python-mode "installed" :python-pep8 "installed")
