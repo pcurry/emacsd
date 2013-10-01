@@ -1,90 +1,62 @@
-;;; .emacs on mozart, beaten into using el-get
 
-;; Need to make sure TeX is available, to work on my resume
+;; Get my local built tools available.
+
 (setq paul-texlive-install "/usr/texbin")
-
-(setenv "PATH" (concat paul-texlive-install ":" (getenv "PATH")))
-
-(cons paul-texlive-install exec-path)
-
-;; Currently, my self-compiled code on mozart lives in ~/bin. This includes git,
-;; because when we set this up, I recall that being Alec's advice.
-;;
-;; Yeah, maybe that was dumb. Maybe git should just be system-wide available.
-;;
-;; So, make sure my ~/bin is on my exec-path and PATH
 (setq paul-binaries "/Users/paulc/bin")
 
-(setenv "PATH" (concat paul-binaries ":" (getenv "PATH")))
+(add-to-list 'exec-path paul-texlive-install)
+(add-to-list 'exec-path paul-binaries)
 
-(cons paul-binaries exec-path)
+(setenv "PATH" (concat paul-binaries ":" paul-texlive-install ":" (getenv "PATH")))
 
-;; Local load-path for mozart. May end up living on all machines someday.
-(setq load-path (cons "/Users/paulc/.emacs.d/el-get/el-get"
-		      (cons "/Users/paulc/.emacs.d/site-lisp" load-path)))
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-;; Had to hack this in keep magit working right - I guess it doesn't check the
-;; exec-path to find executables.
-(setq magit-git-executable "/Users/paulc/bin/git")
+(setq inhibit-startup-message t)                 ;no splash screen
+(setq inhibit-splash-screen t)                   ;Eliminate GNU splash screen
 
 ;; Auctex needs to know where the texmf directory is to build properly.
 ;; This passes that info into the el-get recipe.
 (setq el-get-local-texmf-path "/usr/local/texlive/2010/texmf")
 
-;; Start doing the el-get magic.
+;; Auto-setup for el-get
+;; (unless (require 'el-get nil t)
+;;   (url-retrieve
+;;    "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
+;;    (lambda (s)
+;;      (let (el-get-master-branch)
+;;        (goto-char (point-max))
+;;        (eval-print-last-sexp)))))
+
 (require 'el-get)
+(el-get)
 
-;; Things I'm managing with el-get right now.
-;;(setq el-get-sources '())
-;;      '(el-get auctex clojure-mode color-theme color-theme-twilight org-mode package))
+;; Get some of my key bindings from my work .emacs and my other .emacs
+;; Make this more of what I want.
 
-;; (setq my-packages
-;;       (append
-;;        '(cssh el-get switch-window vkill google-maps nxhtml xcscope yasnippet)
-;;        (mapcar 'el-get-source-name el-get-sources)))
+;; Also I should clear off this machine, install Mac OS X 10.7, and start
+;; configuring a new system where I know what's actually going on.
 
-(setq my-packages
-      '(el-get auctex clojure-mode color-theme color-theme-twilight org-mode package python-mode)
-)
+(load-theme 'wombat)
 
-(el-get 'sync my-packages)
+(show-paren-mode t)
+(ido-mode)
+(recentf-mode t)                                 ;recently edited files in menu
+(setq-default show-trailing-whitespace t)
+(delete-selection-mode t)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; Color-theme setup
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-twilight)
+(defun refresh-file ()
+  (interactive)
+  (revert-buffer t t t))
 
-;; Trying to get auctex working.
-(setq load-path 
-      (cons "/Applications/Emacs.app/Contents/Resources/site-lisp/auctex" 
-	    load-path))
-
-;; Org mode setup
-(require 'org-install)
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-;; (global-set-key "\C-cb" 'org-iswitchb)
-(setq org-log-done t)
-(setq org-agenda-files (list "~/personal/org-mode/home.org" "~/personal/org-mode/meta.org" "~/personal/org-mode/tech-skills.org" "~/personal/org-mode/infrastructure.org"))
+;; Global function key bindings
+(global-set-key [f5] 'refresh-file)
+(global-set-key [f9] 'delete-trailing-whitespace)
 
 
-;; Following modes not currently managed with el-get
+;; Figure out per-mode bindings and use PEP8 in Python mode
 
-;; Erlang mode setup
-(setq load-path (cons  "/Users/paulc/lib/erlang/lib/tools-2.6.6.1/emacs"
-		       load-path))
-(setq erlang-root-dir "/Users/paulc/lib/erlang")
-(require 'erlang-start)
 
-;; Haskell mode setup - get Haskell mode under el-get after I 
-;; get darcs on this machine.
-(load "~/lib/emacs/haskell-mode-2.8.0/haskell-site-file")
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-(add-hook 'haskell-mode-hook 'font-lock-mode)
-(add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
-
-;; Useful for making constants.
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
