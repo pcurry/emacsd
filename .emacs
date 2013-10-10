@@ -29,6 +29,16 @@
   (revert-buffer t t t))
 
 
+;; Auto mode hooks
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.sls$" . yaml-mode))
+
+
+;; sh-mode keymap
+(add-hook 'sh-mode-hook
+	  (lambda ()
+	    (define-key sh-mode-map "\C-c#" 'comment-region)))
+
 ;; Global function key bindings
 (global-set-key [f5] 'refresh-file)
 (global-set-key [f9] 'delete-trailing-whitespace)
