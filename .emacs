@@ -11,14 +11,14 @@
 ;;; initialize with my environment settings.
 
 
-;;; Imports my shell environment PATH
-
-(let ((path (shell-command-to-string ". /etc/profile; . ~/.bash_profile; echo -n $PATH")))
-  (setenv "PATH" path)
-  (setq exec-path
-        (append
-         (split-string-and-unquote path ":")
-         exec-path)))
+;;; Imports my shell environment PATH when on a mac
+(when (memq window-system '(mac ns))
+  (let ((path (shell-command-to-string ". /etc/profile; . ~/.bash_profile; echo -n $PATH")))
+    (setenv "PATH" path)
+    (setq exec-path
+          (append
+           (split-string-and-unquote path ":")
+           exec-path))))
 
 ;; el-get basic setup and autoload
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
