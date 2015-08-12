@@ -86,8 +86,11 @@
             (setq indent-tabs-mode nil)
 	    (define-key python-mode-map [f8] 'python-pep8)))
 
-(add-hook 'python-mode-hook 'auto-complete-mode)
-(add-hook 'python-mode-hook 'jedi:ac-setup)
+;;(add-hook 'python-mode-hook 'auto-complete-mode)
+
+;; Jedi auto-complete setup
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 
 ;; sh-mode keymap
 (add-hook 'sh-mode-hook
